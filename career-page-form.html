@@ -1,0 +1,143 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Application Form</title>
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script src="../public_html/file-upload-server/uploads/carrer-page-js.js"></script>
+    <script type="text/javascript">
+        (function() {
+            emailjs.init("tYB4Gic7401OQacQI"); // Replace with your actual public key
+        })();
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradientBackground 15s ease infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        @keyframes gradientBackground {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .form-container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 60px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        form h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #23a6d5;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        button:hover {
+            background: #23d5ab;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <form id="career-form" enctype="multipart/form-data">
+            <h2>Apply for Position</h2>
+            <label for="first-name">First Name</label>
+            <input type="text" id="first-name" name="first-name" required>
+            <label for="last-name">Last Name</label>
+            <input type="text" id="last-name" name="last-name" required>
+            <label for="email-id">Email ID</label>
+            <input type="email" id="email-id" name="email-id" required>
+            <label for="phone-number">Phone Number</label>
+            <input type="tel" id="phone-number" name="phone-number" required>
+            <label for="position-apply">Position Apply</label>
+            <input type="text" id="position-apply" name="position-apply" required>
+            <label for="address">Address</label>
+            <textarea id="address" name="address" required></textarea>
+            <label for="cv-upload">Upload CV</label>
+            <input type="file" id="cv-upload" name="cv-upload" accept=".pdf" required>
+            <button type="button" onclick="handleFormSubmit()">Submit</button>
+        </form>
+    </div>
+    
+    <script>
+        function handleFormSubmit() {
+            console.log('Form submitted');
+
+            const formData = new FormData();
+            formData.append('first-name', document.querySelector('#first-name').value);
+            formData.append('last-name', document.querySelector('#last-name').value);
+            formData.append('email-id', document.querySelector('#email-id').value);
+            formData.append('phone-number', document.querySelector('#phone-number').value);
+            formData.append('position-apply', document.querySelector('#position-apply').value);
+            formData.append('address', document.querySelector('#address').value);
+            formData.append('cv-upload', document.querySelector('#cv-upload').files[0]);
+
+            fetch('http://localhost:3000/upload', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    alert(data.error);
+                } else {
+                    const templateParams = {
+                        first_name: formData.get('first-name'),
+                        last_name: formData.get('last-name'),
+                        email_id: formData.get('email-id'),
+                        phone_number: formData.get('phone-number'),
+                        position_apply: formData.get('position-apply'),
+                        address: formData.get('address'),
+                        cv_url: data.fileUrl
+                    };
+
+                    console.log('Sending email with the following params:', templateParams);
+
+                    emailjs.send("service_zg0h7sc", "template_980pfsm", templateParams)
+                        .then((response) => {
+                            alert('Application submitted successfully.');
+                            console.log('SUCCESS!', response.status, response.text);
+                        })
+                        .catch((error) => {
+                            alert('Failed to submit application. Please try again.');
+                            console.error('EmailJS Error:', error);
+                        });
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Failed to upload the file. Please try again.');
+            });
+        }
+    </script>
+</body>
+</html> -->
